@@ -38,7 +38,11 @@ export interface IState {
   }
 }
 
-export const TYPE = ['opinion', 'youtube', 'insight']
+export const TYPE: (keyof IState['sector'])[] = [
+  'opinion',
+  'youtube',
+  'insight',
+]
 
 const stateWithAsyncDefault = selector({
   key: 'AsyncDefault',
@@ -60,9 +64,7 @@ const stateWithAsyncDefault = selector({
     }
 
     data.content.forEach((content: IContent) => {
-      newContent[
-        TYPE[content.sector_id - 1] as 'opinion' | 'youtube' | 'insight'
-      ].push(content)
+      newContent[TYPE[content.sector_id - 1]].push(content)
     })
 
     const newData = {
@@ -79,19 +81,17 @@ export const appState = atom<IState>({
   default: stateWithAsyncDefault,
 })
 
-export const tabState = atom<'opinion' | 'youtube' | 'insight'>({
+export const tabState = atom<keyof IState['sector']>({
   key: 'Tab',
   default: 'youtube',
 })
 
 export const sectorSelector = selector<ISector>({
   key: 'SectorSelector',
-  get: ({ get }) =>
-    get(appState).sector[get(tabState) as 'opinion' | 'youtube' | 'insight'],
+  get: ({ get }) => get(appState).sector[get(tabState)],
 })
 
 export const contentSelector = selector<IContent[]>({
   key: 'ContentSelector',
-  get: ({ get }) =>
-    get(appState).content[get(tabState) as 'opinion' | 'youtube' | 'insight'],
+  get: ({ get }) => get(appState).content[get(tabState)],
 })
