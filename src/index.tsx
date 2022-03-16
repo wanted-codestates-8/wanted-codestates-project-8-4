@@ -6,6 +6,14 @@ import { RecoilRoot } from 'recoil'
 import LoadingIndicator from 'components/LoadingIndicator'
 
 const global = css`
+  :root {
+    --primary: #669cff;
+    --blue: #5e72e4;
+    --sky: #e0f0ff;
+    --gray: #6c757d;
+    --lighter: #e9ecef;
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -57,6 +65,17 @@ const global = css`
     &:focus::placeholder {
       color: transparent;
     }
+  }
+
+  .btn {
+    background-color: var(--sky);
+    color: var(--primary);
+    padding: 0.5rem 2.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
   }
 `
 

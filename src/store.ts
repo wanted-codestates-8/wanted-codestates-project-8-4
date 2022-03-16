@@ -13,7 +13,7 @@ interface ISector {
   sort: number
 }
 
-interface IContent {
+export interface IContent {
   id: number
   sector_id: number
   title: string
@@ -25,7 +25,7 @@ interface IContent {
   like_top: number
 }
 
-interface IState {
+export interface IState {
   sector: {
     opinion: ISector
     youtube: ISector
@@ -79,9 +79,9 @@ export const appState = atom<IState>({
   default: stateWithAsyncDefault,
 })
 
-export const tabState = atom<string>({
+export const tabState = atom<'opinion' | 'youtube' | 'insight'>({
   key: 'Tab',
-  default: 'opinion',
+  default: 'youtube',
 })
 
 export const sectorSelector = selector<ISector>({

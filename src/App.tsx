@@ -10,11 +10,12 @@ function App() {
   const [tab, setTab] = useRecoilState(tabState)
   const sector = useRecoilValue(sectorSelector)
   const content = useRecoilValue(contentSelector)
+
   return (
     <Main>
       <Header />
       <Template>
-        <ContentList tabName="Youtube"></ContentList>
+        <ContentList type={tab}></ContentList>
       </Template>
     </Main>
   )
