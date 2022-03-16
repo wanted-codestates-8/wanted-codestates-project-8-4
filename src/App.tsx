@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import Test from 'Test'
+import Template from 'components/Template'
 function App() {
   return (
     <Main>
-      <Test />
+      <Template />
     </Main>
   )
 }

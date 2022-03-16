@@ -1,29 +1,31 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import Subscribe from 'components/Subscribe'
-import Tab from './components/Tab'
-export default function Test() {
+import Tab from './Tab'
+import Header from 'components/Header'
+export default function Template() {
   return (
-    <Wrapper>
-      <Tab />
-      <NewPageWrapper>
-        <NewPageMain>
+    <>
+      <Header />
+      <Wrapper>
+        {/* <Tab /> */}
+        <PageWrapper>
           <Subscribe />
-        </NewPageMain>
-      </NewPageWrapper>
-      <NewPageWrapper>
-        <NewPageMain>
+        </PageWrapper>
+        <PageWrapper>
           <Subscribe />
-        </NewPageMain>
-      </NewPageWrapper>
-    </Wrapper>
+        </PageWrapper>
+      </Wrapper>
+    </>
   )
 }
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 2fr 2fr;
+  grid-template-columns: 1fr 1fr;
   height: 100%;
+
+  /* grid-template-columns: 1fr 2fr 2fr; */
 
   @media (max-width: 768px) {
     display: flex;
@@ -31,9 +33,7 @@ const Wrapper = styled.div`
   }
 `
 
-const NewPageWrapper = styled.div``
-
-const NewPageMain = styled.div`
+const PageWrapper = styled.div`
   margin: 3rem;
 `
 
