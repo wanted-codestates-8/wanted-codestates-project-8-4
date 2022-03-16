@@ -19,18 +19,14 @@ export default function ContentListItem({
   link,
 }: ListItem) {
   const handleShare = () => {
-    const url = document.createElement('textarea')
+    let url = ''
 
     if (tabName === 'Youtube') {
-      url.value = `https://www.youtube.com/watch?v=${link}`
+      url = `https://www.youtube.com/watch?v=${link}`
     } else {
-      url.value = link
+      url = link
     }
-    document.body.appendChild(url)
-    url.select()
-    document.execCommand('copy')
-    document.body.removeChild(url)
-    alert('링크가 복사되었습니다:)')
+    window.open(url, '_blank')
   }
 
   return (
