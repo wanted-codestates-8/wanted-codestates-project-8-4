@@ -14,7 +14,7 @@ const labelColor = {
 }
 
 export default function ContentList({ tabName }: Contents) {
-  const content = DUMMY_DATA.content[tabName]
+  const content: typeof DUMMY_DATA.content.Opinion = DUMMY_DATA.content[tabName]
   const shortContent = content.slice(0, 3)
   const sector = DUMMY_DATA.sector[tabName]
   const [moreContent, setMoreContent] = useState(false)
