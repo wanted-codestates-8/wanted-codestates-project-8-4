@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 // Import Swiper styles
 import 'swiper/css'
@@ -9,6 +9,7 @@ import { Autoplay, EffectCreative, Pagination } from 'swiper'
 import styled from '@emotion/styled'
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { IoShareOutline } from 'react-icons/io5'
+import { DUMMY_DATA } from 'dummy'
 
 export default function NewCards() {
   // const pagination = {
@@ -22,7 +23,10 @@ export default function NewCards() {
   //   },
   // }
 
-  const bullet = ['1번', '2번', '3번', '4번']
+  const youtubeData = DUMMY_DATA.content.Youtube
+  const newData = youtubeData.filter((like) => like.like_top === 1)
+  const [isLike, setIsLike] = useState(false)
+  console.log(newData)
 
   return (
     <CardWrapper>
@@ -32,20 +36,10 @@ export default function NewCards() {
         effect={'creative'}
         loop={true}
         // autoplay={{
-        //   // delay: 15000,
+        //   delay: 5000,
         //   disableOnInteraction: false,
         // }}
-        pagination={{
-          el: '.swiper-pagination',
-          type: 'bullets',
-          clickable: true,
-          bulletClass: 'singleBullet',
-          renderBullet: function (index, className) {
-            return (
-              '<span class="' + className + '">' + bullet[index] + '</span>'
-            )
-          },
-        }}
+        pagination={true}
         creativeEffect={{
           prev: {
             shadow: true,
@@ -59,23 +53,32 @@ export default function NewCards() {
         modules={[Autoplay, EffectCreative, Pagination]}
         className="mySwiper"
       >
-        <SwiperSlide>
-          <CardImg src={`${process.env.PUBLIC_URL}/favicon.ico`} />
-          <CardTextWrapper>
-            <CardText>
-              부동산 시장에도 번진 크립토 금융!
-              <br /> 이제 비트코인으로 모기지론 받는다?
-            </CardText>
-          </CardTextWrapper>
-        </SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
+        {newData &&
+          newData.map((data) => {
+            return (
+              <SwiperSlide key={data.id}>
+                <CardImg src={data.image} />
+                <CardTextWrapper>
+                  <CardText>{data.title}</CardText>
+                </CardTextWrapper>
+              </SwiperSlide>
+            )
+          })}
         <div>
           <div className="swiper-pagination"></div>
           <IconWrapper>
-            <AiOutlineHeart size={40} />
-            <AiFillHeart size={40} color={'red'} />
-            <IoShareOutline size={40} />
+            {isLike ? (
+              <FillHeart onClick={() => setIsLike(!isLike)}>
+                <AiFillHeart size={40} color={'red'} />
+              </FillHeart>
+            ) : (
+              <Heart onClick={() => setIsLike(!isLike)}>
+                <AiOutlineHeart size={40} color={'lightgray'} />
+              </Heart>
+            )}
+            <LinkIcon>
+              <IoShareOutline size={40} color={'lightgray'} />
+            </LinkIcon>
           </IconWrapper>
         </div>
       </Swiper>
@@ -84,14 +87,15 @@ export default function NewCards() {
 }
 
 const CardWrapper = styled.section`
-  width: 400px;
-  height: 400px;
-  background-color: #f9f9f9f9;
+  width: 350px;
+  height: 360px;
+  background-color: white;
   margin: 10px auto;
+  border-radius: 10px;
 
   & .swiper {
-    margin: 50px auto;
-    width: 320px;
+    margin: 15px auto;
+    /* width: 500px; */
     height: 240px;
     overflow: visible;
   }
@@ -113,18 +117,26 @@ const CardWrapper = styled.section`
   & .swiper-pagination {
     position: absolute;
     bottom: -15%;
-    width: 100px;
+    width: 6rem;
   }
 
   & .swiper-pagination-bullet {
   }
 
-  & .signleBullet {
+  & .swiper-pagination-bullet-active {
+    transform: scale(1.4);
+    transition: 0.8s;
   }
 `
-const CardTitle = styled.div``
+const CardTitle = styled.div`
+  font-size: 2rem;
+  padding: 1rem;
+`
 
-const CardImg = styled.img``
+const CardImg = styled.img`
+  width: 30rem;
+  object-fit: contain;
+`
 
 const CardTextWrapper = styled.div`
   box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
@@ -132,8 +144,10 @@ const CardTextWrapper = styled.div`
   color: black;
   margin-top: 5px;
   font-size: 16px;
-  padding: 5px;
+  padding: 5px 15px;
   border-radius: 10px;
+  height: 6rem;
+  width: 30rem;
 `
 
 const CardText = styled.div``
@@ -141,4 +155,18 @@ const CardText = styled.div``
 const IconWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
+  margin-top: 5px;
+`
+
+const Heart = styled.div`
+  cursor: pointer;
+  transition: 0.5s;
+`
+const FillHeart = styled.div`
+  transform: scale(1);
+  transition: 10s;
+`
+
+const LinkIcon = styled.div`
+  cursor: pointer;
 `

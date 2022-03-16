@@ -7,7 +7,7 @@ function App() {
   return (
     <Main>
       <NewCards />
-      <Subscribe />
+      {/* <Subscribe /> */}
     </Main>
   )
 }
