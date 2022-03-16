@@ -11,14 +11,20 @@ export default function Test() {
           <li>3</li>
         </ul>
       </Tab>
-      <Main>
+      <NewPageWrapper>
+        <NewPageMain>
         <div>2</div>
         <div>1</div>
-      </Main>
-      <Sub>
+
+        </NewPageMain>
+      </NewPageWrapper>
+      <DetailedListWrapper>
+        <DetailedMain>
+
         <div>2</div>
         <div>1</div>
-      </Sub>
+        </DetailedMain>
+      </DetailedListWrapper>
     </Wrapper>
   )
 }
@@ -37,10 +43,22 @@ const Wrapper = styled.div`
 const Tab = styled.div`
   background: salmon;
 `
-const Main = styled.div`
-  background: dodgerblue;
+const NewPageWrapper = styled.div`
 `
 
-const Sub = styled.div`
-  background: yellow;
+const NewPageMain = styled.div`
+  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+  border-radius: 1rem;
+  padding: 2rem;
+  margin: 3rem;
+`
+
+const DetailedListWrapper = styled.div`
+`
+
+const DetailedMain = styled.div`
+  box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+  border-radius: 1rem;
+  padding: 2rem;
+  margin: 3rem;
 `
