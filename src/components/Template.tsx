@@ -2,11 +2,11 @@ import React from 'react'
 import styled from '@emotion/styled'
 import Subscribe from 'components/Subscribe'
 import Tab from './Tab'
-import Header from 'components/Header'
+// import Header from 'components/Header'
 export default function Template() {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Wrapper>
         {/* <Tab /> */}
         <PageWrapper>

@@ -3,15 +3,18 @@ import styled from '@emotion/styled'
 import { AiOutlineYoutube } from 'react-icons/ai'
 import { BiDockLeft } from 'react-icons/bi'
 import { CgInsights } from 'react-icons/cg'
+import { useRecoilState } from 'recoil'
+import { tabState, TYPE } from 'store'
 
 export default function Header() {
   const Tabcontent = [
-    { id: 1, tab: '유투브', logo: <AiOutlineYoutube /> },
-    { id: 2, tab: '알쓸B잡', logo: <BiDockLeft /> },
+    { id: 1, tab: '알쓸B잡', logo: <AiOutlineYoutube /> },
+    { id: 2, tab: '유투브', logo: <BiDockLeft /> },
     { id: 3, tab: '인사이트', logo: <CgInsights /> },
   ]
   const [border, setBorder] = useState(1)
-  console.log('hihi', border)
+  const [tab, setTab] = useRecoilState(tabState)
+  console.log(tab, 1)
   return (
     <TabWrap>
       <div style={{ width: '160px', height: '30px' }}>
@@ -28,7 +31,7 @@ export default function Header() {
             <li
               className={border === v.id ? 'active' : ''}
               key={v.id}
-              onClick={() => setBorder(v.id)}
+              onClick={() => setTab(TYPE[v.id - 1])}
             >
               <div className={border === v.id ? 'active' : ''}>
                 <span>{v.tab}</span>
