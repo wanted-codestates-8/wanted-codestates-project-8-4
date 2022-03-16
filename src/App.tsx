@@ -1,13 +1,19 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import ContentList from 'components/ContentList'
 
 function App() {
-  return <Main>hello</Main>
+  return (
+    <Main>
+      <ContentList tabName="Opinion"></ContentList>
+    </Main>
+  )
 }
 
 const Main = styled.main`
   width: 100vw;
-  height: 100vh;
+  display: flex;
+  justify-content: center;
 `
 
 export default App
