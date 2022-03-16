@@ -1,15 +1,41 @@
-const DUMMY_DATA = {
-  Opinion: {
-    id: 1,
-    sector_kr: '알쓸B잡',
-    sector_en: 'Opinion',
-    type: 'News',
-    title: '알쓸B잡',
-    url: 'https://medium.com/sandbank-kr',
-    script_kr: '더 많은 글은 샌드뱅크 미디엄에서 만나보세요.',
-    script_en: 'You can read more articles on Sandbank Medium.',
-    sort: 2,
-    content: [
+export const DUMMY_DATA = {
+  sector: {
+    Opinion: {
+      id: 1,
+      sector_kr: '알쓸B잡',
+      sector_en: 'Opinion',
+      type: 'News',
+      title: '알쓸B잡',
+      url: 'https://medium.com/sandbank-kr',
+      script_kr: '더 많은 글은 샌드뱅크 미디엄에서 만나보세요.',
+      script_en: 'You can read more articles on Sandbank Medium.',
+      sort: 2,
+    },
+    Youtube: {
+      id: 2,
+      sector_kr: '유튜브',
+      sector_en: 'Youtube',
+      type: 'Youtube',
+      title: '블록체인 NOW',
+      url: 'https://www.youtube.com/channel/UC2tM460k4I6vSxktyDDkSsA',
+      script_kr: '더 많은 영상은 샌드뱅크 채널에서 만나보세요.',
+      script_en: 'You can read more articles on Sandbank Medium.',
+      sort: 1,
+    },
+    Insight: {
+      id: 3,
+      sector_kr: '인사이트',
+      sector_en: 'Insight',
+      type: 'Report',
+      title: '어떻게 투자할까',
+      url: 'https://medium.com/sandbank-kr',
+      script_kr: '더 많은 글은 샌드뱅크 미디엄에서 만나보세요.',
+      script_en: 'You can read more articles on Sandbank Medium.',
+      sort: 3,
+    },
+  },
+  content: {
+    Opinion: [
       {
         id: 69,
         sector_id: 1,
@@ -371,18 +397,7 @@ const DUMMY_DATA = {
         like_top: 0,
       },
     ],
-  },
-  Youtube: {
-    id: 2,
-    sector_kr: '유튜브',
-    sector_en: 'Youtube',
-    type: 'Youtube',
-    title: '블록체인 NOW',
-    url: 'https://www.youtube.com/channel/UC2tM460k4I6vSxktyDDkSsA',
-    script_kr: '더 많은 영상은 샌드뱅크 채널에서 만나보세요.',
-    script_en: 'You can read more articles on Sandbank Medium.',
-    sort: 1,
-    content: [
+    Youtube: [
       {
         id: 62,
         sector_id: 2,
@@ -786,18 +801,7 @@ const DUMMY_DATA = {
         like_top: 0,
       },
     ],
-  },
-  Insight: {
-    id: 3,
-    sector_kr: '인사이트',
-    sector_en: 'Insight',
-    type: 'Report',
-    title: '어떻게 투자할까',
-    url: 'https://medium.com/sandbank-kr',
-    script_kr: '더 많은 글은 샌드뱅크 미디엄에서 만나보세요.',
-    script_en: 'You can read more articles on Sandbank Medium.',
-    sort: 3,
-    content: [
+    Insight: [
       {
         id: 36,
         sector_id: 3,
