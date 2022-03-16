@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import App from './App'
 import { Global, css } from '@emotion/react'
 import { RecoilRoot } from 'recoil'
+import LoadingIndicator from 'components/LoadingIndicator'
 
 const global = css`
   :root {
@@ -82,7 +83,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Global styles={global} />
     <RecoilRoot>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingIndicator />}>
         <App />
       </Suspense>
     </RecoilRoot>

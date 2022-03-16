@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react'
 import styled from '@emotion/styled'
+import Template from 'components/Template'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { contentSelector, sectorSelector, tabState, TYPE } from 'store'
 import ContentList from 'components/ContentList'
+import Header from 'components/Header'
 
 function App() {
   const [tab, setTab] = useRecoilState(tabState)
@@ -11,7 +13,10 @@ function App() {
 
   return (
     <Main>
-      <ContentList type={tab}></ContentList>
+      <Header />
+      <Template>
+        <ContentList type={tab}></ContentList>
+      </Template>
     </Main>
   )
 }
