@@ -2,19 +2,24 @@ import React from 'react'
 import styled from '@emotion/styled'
 import Subscribe from 'components/Subscribe'
 import Tab from './Tab'
+import Header from './Header'
 // import Header from 'components/Header'
-export default function Template() {
+
+interface ITemplate {
+  children?: React.ReactNode
+}
+
+export default function Template({ children }: ITemplate) {
   return (
     <>
       {/* <Header /> */}
       <Wrapper>
         {/* <Tab /> */}
         <PageWrapper>
+          {children}
           <Subscribe />
         </PageWrapper>
-        <PageWrapper>
-          <Subscribe />
-        </PageWrapper>
+        {/* <PageWrapper></PageWrapper> */}
       </Wrapper>
     </>
   )

@@ -13,8 +13,9 @@ function App() {
   return (
     <Main>
       <Header />
-      <Template />
-      <ContentList tabName="Youtube"></ContentList>
+      <Template>
+        <ContentList tabName="Youtube"></ContentList>
+      </Template>
     </Main>
   )
 }
