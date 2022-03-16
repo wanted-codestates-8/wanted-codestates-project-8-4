@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import { DUMMY_DATA } from 'dummy'
 import ContentListItem from './ContentListItem'
+import ContentDetail from './ContentDetail'
 
 interface Contents {
   tabName: keyof typeof DUMMY_DATA.content
@@ -54,16 +55,19 @@ export default function ContentList({ tabName }: Contents) {
       <MoreButton onClick={() => setMoreContent(!moreContent)}>
         {moreContent ? '접기' : '더보기'}
       </MoreButton>
+
+      <ContentDetail {...DUMMY_DATA} />
     </Section>
   )
 }
 
 const Section = styled.section`
+  background-color: lightgrey;
   width: 40%;
+  height: 100%;
+  overflow-x: hidden;
   border-radius: 20px;
   border: 1px solid #e0e0e0;
-  // box-shadow: 10px 10px 10px #e0e0e0;
-  padding: 20px;
 `
 const TitleHeader = styled.div`
   display: flex;
