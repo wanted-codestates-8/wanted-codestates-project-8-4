@@ -1,68 +1,76 @@
-import React from 'react'
+import React, { Dispatch } from 'react'
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
 import { IoIosArrowBack } from 'react-icons/io'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { IoShareOutline } from 'react-icons/io5'
+import { IState } from 'store'
 
 interface Props {
-  sector: any
+  listTitle: string
+  type: keyof IState['sector']
+  open: boolean
+  setOpen: Dispatch<React.SetStateAction<boolean>>
   content: any
 }
 
-export default function ContentDetail({ sector, content }: Props) {
-  //prop으로 open state, handler을 받아온다
-  //prop으로 listTitle, type, data를 받아온다
-  const open = true
-  const type = 'Insight'
+export default function ContentDetail({
+  listTitle,
+  type,
+  content,
+  open,
+  setOpen,
+}: Props) {
+  function mainSelect() {
+    switch (type) {
+      case 'youtube':
+        return (
+          <MainContent>
+            <YoutubeIframeContainer>
+              <iframe
+                src={`https://www.youtube.com/embed/${content?.link}`}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                title="Embedded youtube"
+              />
+            </YoutubeIframeContainer>
 
-  // switch로 둘 중 하나를 리턴하는 함수를 제작한다
-  // type을 보고 해당 데이터를 리턴하도록 만든다
-  const YoutubeMain = () => (
-    <MainContent>
-      <YoutubeIframeContainer>
-        <iframe
-          src={`https://www.youtube.com/embed/${content.Youtube[0].link}`}
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          title="Embedded youtube"
-        />
-      </YoutubeIframeContainer>
+            <ContentTitle>
+              <p>{content?.title}</p>
+            </ContentTitle>
+          </MainContent>
+        )
 
-      <ContentTitle>
-        <p>{content.Youtube[0].title}</p>
-      </ContentTitle>
-    </MainContent>
-  )
+      case 'insight':
+        return (
+          <MainContent>
+            <ContentTitle className="margin-bottom">
+              <p>{content?.title}</p>
+            </ContentTitle>
 
-  const InsightMain = () => (
-    <MainContent>
-      <ContentTitle className="margin-bottom">
-        <p>{content.Insight[0].title}</p>
-      </ContentTitle>
-
-      <InsightImgContainer>
-        <img src={content.Insight[0].image} alt="insight imgage" />
-      </InsightImgContainer>
-    </MainContent>
-  )
+            <InsightImgContainer>
+              <img src={content?.image} alt="insight imgage" />
+            </InsightImgContainer>
+          </MainContent>
+        )
+    }
+  }
 
   return (
     <Container open={open}>
       <Header>
-        <IoIosArrowBack className="back-icon" onClick={() => {}} />
-        <span className="list-title">{sector[2].title}</span>
+        <IoIosArrowBack className="back-icon" onClick={() => setOpen(false)} />
+        <span className="list-title">{listTitle}</span>
       </Header>
 
-      {/* {YoutubeMain()} */}
-      {InsightMain()}
+      {mainSelect()}
 
       <ContentBody>
-        <p>{content.Insight[0].body}</p>
+        <p>{content?.body}</p>
       </ContentBody>
 
-      {type === 'Insight' && (
+      {type === 'insight' && (
         <Readmore>
           <button className="btn">전체 리포트 읽기</button>
         </Readmore>
@@ -89,6 +97,10 @@ const Container = styled.article<{ open: boolean }>`
   height: 100%;
   background-color: white;
   overflow-y: auto;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
   transition: transform 0.3s ease-in;
   transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(100%)')};
 `
