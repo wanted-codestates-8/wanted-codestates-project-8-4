@@ -33,6 +33,8 @@ export default function ContentList({ tabName }: Contents) {
               image={list.image}
               upload_date={list.upload_date}
               like_cnt={list.like_cnt}
+              link={list.link}
+              tabName={tabName}
             ></ContentListItem>
           </ContentWrapper>
         ))}
@@ -43,6 +45,8 @@ export default function ContentList({ tabName }: Contents) {
               image={list.image}
               upload_date={list.upload_date}
               like_cnt={list.like_cnt}
+              link={list.link}
+              tabName={tabName}
             ></ContentListItem>
           </ContentWrapper>
         ))}

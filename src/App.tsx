@@ -5,7 +5,7 @@ import ContentList from 'components/ContentList'
 function App() {
   return (
     <Main>
-      <ContentList tabName="Opinion"></ContentList>
+      <ContentList tabName="Youtube"></ContentList>
     </Main>
   )
 }

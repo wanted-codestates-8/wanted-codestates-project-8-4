@@ -4,16 +4,35 @@ import { AiOutlineHeart } from 'react-icons/ai'
 import { IoShareOutline } from 'react-icons/io5'
 
 interface ListItem {
+  tabName: string
   image: string
   upload_date: string
   like_cnt: number
+  link: string
 }
 
 export default function ContentListItem({
+  tabName,
   image,
   upload_date,
   like_cnt,
+  link,
 }: ListItem) {
+  const handleShare = () => {
+    const url = document.createElement('textarea')
+
+    if (tabName === 'Youtube') {
+      url.value = `https://www.youtube.com/watch?v=${link}`
+    } else {
+      url.value = link
+    }
+    document.body.appendChild(url)
+    url.select()
+    document.execCommand('copy')
+    document.body.removeChild(url)
+    alert('링크가 복사되었습니다:)')
+  }
+
   return (
     <>
       <ContentImg src={image}></ContentImg>
@@ -24,7 +43,7 @@ export default function ContentListItem({
             <AiOutlineHeart></AiOutlineHeart>
             {like_cnt}
           </ContentSpan>
-          <ContentSpan>
+          <ContentSpan onClick={handleShare}>
             <IoShareOutline></IoShareOutline>
             공유하기
           </ContentSpan>
