@@ -1,8 +1,12 @@
 import React from 'react'
 import styled from '@emotion/styled'
-
+import Test from 'Test'
 function App() {
-  return <Main>hello</Main>
+  return (
+    <Main>
+      <Test />
+    </Main>
+  )
 }
 
 const Main = styled.main`
