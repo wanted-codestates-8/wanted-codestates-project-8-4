@@ -1,20 +1,33 @@
 import React, { useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { Autoplay, EffectCreative, Pagination } from 'swiper'
+import SwiperClass from 'swiper/types/swiper-class'
+import styled from '@emotion/styled'
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
+import { IoShareOutline } from 'react-icons/io5'
+import { contentSelector } from 'store'
+import { useRecoilValue } from 'recoil'
+
 // Import Swiper styles
 import 'swiper/css'
 import 'swiper/css/effect-creative'
 import 'swiper/css/pagination'
-// import required modules
-import { Autoplay, EffectCreative, Pagination } from 'swiper'
-import styled from '@emotion/styled'
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
-import { IoShareOutline } from 'react-icons/io5'
-import { DUMMY_DATA } from 'dummy'
 
 export default function NewCards() {
-  const youtubeData = DUMMY_DATA.content.Youtube
-  const newData = youtubeData.filter((like) => like.like_top === 1)
+  const contentData = useRecoilValue(contentSelector)
+  const newData = contentData.filter((like) => like.like_top === 1)
+  const topIds = newData.map((v) => v.id)
   const [isLike, setIsLike] = useState(false)
+  const likes = [68, 60, 36]
+
+  const handleSlideChange = (e: SwiperClass) => {
+    const i = (e.activeIndex - 1) % newData.length
+    if (likes.includes(topIds[i])) {
+      setIsLike(true)
+    } else {
+      setIsLike(false)
+    }
+  }
 
   return (
     <CardWrapper>
@@ -44,6 +57,9 @@ export default function NewCards() {
           },
         }}
         modules={[Autoplay, EffectCreative, Pagination]}
+        observer
+        onSlideChange={handleSlideChange}
+        onObserverUpdate={handleSlideChange}
         className="mySwiper"
       >
         {newData &&
