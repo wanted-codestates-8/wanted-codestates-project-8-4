@@ -1,4 +1,4 @@
-import React, { Dispatch, useState, useEffect } from 'react'
+import React, { Dispatch, useState, useEffect, Suspense } from 'react'
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
 import { IoIosArrowBack } from 'react-icons/io'
@@ -42,21 +42,21 @@ export default function ContentDetail({
     }
   }, [content])
 
-  console.log(detailMemory)
-
   function mainSelect() {
     switch (type) {
       case 'youtube':
         return (
           <MainContent>
             <YoutubeIframeContainer>
-              <iframe
-                src={`https://www.youtube.com/embed/${detailMemory[type]?.link}`}
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                title="Embedded youtube"
-              />
+              <Suspense fallback={<div>loading</div>}>
+                <iframe
+                  src={`https://www.youtube.com/embed/${detailMemory[type]?.link}`}
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  title="Embedded youtube"
+                />
+              </Suspense>
             </YoutubeIframeContainer>
 
             <ContentTitle>
@@ -122,7 +122,12 @@ export default function ContentDetail({
           좋아요
         </span>
 
-        <span className="share">
+        <span
+          className="share"
+          onClick={() => {
+            window.open(detailMemory[type]?.link)
+          }}
+        >
           <IoShareOutline />
           공유하기
         </span>

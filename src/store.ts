@@ -23,6 +23,7 @@ export interface IContent {
   upload_date: string
   like_cnt: number
   like_top: number
+  liked?: boolean
 }
 
 export interface IState {

@@ -29,7 +29,6 @@ export default function ContentList({ type }: Contents) {
   const [selected, setSelected] = useState<IContent | null>(null)
   const [open, setOpen] = useState(false)
   const [scrollTop, setScrollTop] = useState(0)
-
   const containerRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -42,6 +41,8 @@ export default function ContentList({ type }: Contents) {
 
   useEffect(() => {
     setSelected(null)
+    containerRef.current?.scrollTo({ top: 0 })
+    setMoreContent(false)
   }, [type])
 
   useEffect(() => {
