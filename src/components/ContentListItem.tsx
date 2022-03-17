@@ -12,6 +12,7 @@ interface ListItem {
   link: string
   list: IContent
   onHandleCardClick: (list: IContent) => void
+  onLikeClick: (id: number) => void
 }
 
 export default function ContentListItem({
@@ -22,6 +23,7 @@ export default function ContentListItem({
   link,
   list,
   onHandleCardClick,
+  onLikeClick,
 }: ListItem) {
   const handleShare = () => {
     let url = ''
@@ -44,7 +46,9 @@ export default function ContentListItem({
         <ContentDiv>{upload_date}</ContentDiv>
         <ContentDiv>
           <ContentSpan>
-            <AiOutlineHeart></AiOutlineHeart>
+            <AiOutlineHeart
+              onClick={() => onLikeClick(list.id)}
+            ></AiOutlineHeart>
             {like_cnt}
           </ContentSpan>
           <ContentSpan onClick={handleShare}>
