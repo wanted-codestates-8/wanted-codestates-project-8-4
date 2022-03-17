@@ -1,8 +1,9 @@
 import React, { Dispatch } from 'react'
 import styled from '@emotion/styled'
-import { AiOutlineHeart } from 'react-icons/ai'
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { IoShareOutline } from 'react-icons/io5'
-import { IContent, IState } from 'store'
+import { contentSelector, IContent, IState } from 'store'
+import { useRecoilValue } from 'recoil'
 
 interface ListItem {
   type: keyof IState['sector']
@@ -25,7 +26,7 @@ export default function ContentListItem({
   onHandleCardClick,
   onLikeClick,
 }: ListItem) {
-  const handleShare = () => {
+  function handleShare() {
     let url = ''
 
     if (type === 'youtube') {
@@ -35,7 +36,6 @@ export default function ContentListItem({
     }
     window.open(url, '_blank')
   }
-
   return (
     <>
       <ContentImg
@@ -46,9 +46,17 @@ export default function ContentListItem({
         <ContentDiv>{upload_date}</ContentDiv>
         <ContentDiv>
           <ContentSpan>
-            <AiOutlineHeart
-              onClick={() => onLikeClick(list.id)}
-            ></AiOutlineHeart>
+            {list.liked ? (
+              <AiFillHeart
+                style={{ color: 'red' }}
+                onClick={() => onLikeClick(list.id)}
+              ></AiFillHeart>
+            ) : (
+              <AiOutlineHeart
+                onClick={() => onLikeClick(list.id)}
+              ></AiOutlineHeart>
+            )}
+
             {like_cnt}
           </ContentSpan>
           <ContentSpan onClick={handleShare}>

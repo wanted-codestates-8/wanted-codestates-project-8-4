@@ -70,6 +70,7 @@ export default function ContentList({ type }: Contents) {
     }
 
     setContentSelect(newContents)
+    console.log(likedContent.liked)
   }
 
   return (
@@ -108,6 +109,7 @@ export default function ContentList({ type }: Contents) {
           setSelected={setSelected}
           type={type}
           scrollTop={scrollTop}
+          onLikeClick={handleLikeClick}
         />
       )}
     </Section>
