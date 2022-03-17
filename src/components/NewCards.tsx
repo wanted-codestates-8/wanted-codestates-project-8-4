@@ -12,25 +12,13 @@ import { IoShareOutline } from 'react-icons/io5'
 import { DUMMY_DATA } from 'dummy'
 
 export default function NewCards() {
-  // const pagination = {
-  //   el: '.swiper-pagination',
-  //   type: 'bullets',
-  //   clickable: true,
-  //   dynamicBullets: true,
-  //   bulletClass: 'singleBullet',
-  //   renderBullet: function (index: number, className) {
-  //     return '<span class="' + className + '">' + (index + 1) + '</span>'
-  //   },
-  // }
-
   const youtubeData = DUMMY_DATA.content.Youtube
   const newData = youtubeData.filter((like) => like.like_top === 1)
   const [isLike, setIsLike] = useState(false)
-  console.log(newData)
 
   return (
     <CardWrapper>
-      <CardTitle>새로 올라왔어요 new</CardTitle>
+      <CardTitle>새로 올라왔어요 NEW</CardTitle>
       <Swiper
         grabCursor={true}
         effect={'creative'}
@@ -39,15 +27,18 @@ export default function NewCards() {
         //   delay: 5000,
         //   disableOnInteraction: false,
         // }}
-        pagination={true}
+        pagination={{
+          el: '.swiper-pagination',
+          type: 'bullets',
+        }}
         creativeEffect={{
           prev: {
-            shadow: true,
-            translate: ['-120%', 0, -500],
+            opacity: 0.5,
+            translate: ['-120%', 0, -200],
           },
           next: {
-            shadow: true,
-            translate: ['120%', 0, -500],
+            opacity: 0.5,
+            translate: ['120%', 0, -200],
           },
         }}
         modules={[Autoplay, EffectCreative, Pagination]}
@@ -64,8 +55,8 @@ export default function NewCards() {
               </SwiperSlide>
             )
           })}
-        <div>
-          <div className="swiper-pagination"></div>
+        <BottomWrapper>
+          <div className="swiper-pagination" />
           <IconWrapper>
             {isLike ? (
               <FillHeart onClick={() => setIsLike(!isLike)}>
@@ -73,41 +64,38 @@ export default function NewCards() {
               </FillHeart>
             ) : (
               <Heart onClick={() => setIsLike(!isLike)}>
-                <AiOutlineHeart size={40} color={'lightgray'} />
+                <AiOutlineHeart size={40} color={'#adaeb3'} />
               </Heart>
             )}
             <LinkIcon>
-              <IoShareOutline size={40} color={'lightgray'} />
+              <IoShareOutline size={40} color={'#adaeb3'} />
             </LinkIcon>
           </IconWrapper>
-        </div>
+        </BottomWrapper>
       </Swiper>
     </CardWrapper>
   )
 }
 
 const CardWrapper = styled.section`
-  width: 350px;
-  height: 360px;
   background-color: white;
-  margin: 10px auto;
-  border-radius: 10px;
+  margin: 1rem auto;
+  border-radius: 2rem;
+  padding: 1.6rem;
+  box-shadow: 0 0 1.6rem rgba(0, 0, 0, 0.2);
 
   & .swiper {
-    margin: 15px auto;
-    /* width: 500px; */
-    height: 240px;
-    overflow: visible;
+    height: fit-content;
   }
 
   & .swiper-wrapper {
-    overflow: hidden;
   }
 
   & .swiper-slide {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     font-size: 22px;
     font-weight: bold;
     color: black;
@@ -115,12 +103,17 @@ const CardWrapper = styled.section`
   }
 
   & .swiper-pagination {
-    position: absolute;
-    bottom: -15%;
-    width: 6rem;
+    position: static;
+    width: 7rem;
+    margin-bottom: 0.4rem;
+    margin-left: 0.6rem;
+
+    display: flex;
+    justify-content: space-between;
   }
 
   & .swiper-pagination-bullet {
+    background-color: #347af4;
   }
 
   & .swiper-pagination-bullet-active {
@@ -130,32 +123,48 @@ const CardWrapper = styled.section`
 `
 const CardTitle = styled.div`
   font-size: 2rem;
-  padding: 1rem;
+  font-weight: bold;
+  padding-top: 0.6rem;
+  padding-bottom: 2rem;
 `
 
 const CardImg = styled.img`
-  width: 30rem;
+  width: 100%;
   object-fit: contain;
 `
 
 const CardTextWrapper = styled.div`
-  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.2);
-  background-color: white;
-  color: black;
-  margin-top: 5px;
-  font-size: 16px;
-  padding: 5px 15px;
+  height: 9rem;
+  width: 98%;
+  margin: 1rem 0;
   border-radius: 10px;
-  height: 6rem;
-  width: 30rem;
+  padding: 1.6rem;
+  box-shadow: 0 0.4rem 0.8rem -0.2rem rgba(0, 0, 0, 0.2);
+  background-color: white;
+
+  font-size: 1.8rem;
+  font-weight: bold;
+
+  display: grid;
+  place-items: center;
 `
 
-const CardText = styled.div``
+const CardText = styled.div`
+  margin-top: -0.2rem;
+`
+
+const BottomWrapper = styled.div`
+  margin-top: 1.6rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
 
 const IconWrapper = styled.div`
+  width: 9.6rem;
   display: flex;
-  justify-content: flex-end;
-  margin-top: 5px;
+  justify-content: space-between;
 `
 
 const Heart = styled.div`
