@@ -1,26 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
-import { DUMMY_DATA } from 'dummy'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import {
+  contentSelector,
+  IContent,
+  sectorSelector,
+  tabState,
+  TYPE,
+} from 'store'
 import ContentListItem from './ContentListItem'
-
-interface Contents {
-  tabName: keyof typeof DUMMY_DATA.content
-}
+import ContentDetail from './ContentDetail'
 
 const labelColor = {
-  Youtube: '#C4472A',
-  Opinion: '#729AF8',
-  Insight: '#9493D1',
+  opinion: '#729AF8',
+  youtube: '#C4472A',
+  insight: '#9493D1',
 }
 
-export default function ContentList({ tabName }: Contents) {
-  // const content: typeof DUMMY_DATA.content.Opinion = DUMMY_DATA.content[tabName]
-  // const shortContent = content.slice(0, 3)
-  const sector = DUMMY_DATA.sector[tabName]
-  const initialContent = DUMMY_DATA.content[tabName]
-  const [content, setContent] =
-    useState<typeof DUMMY_DATA.content.Opinion>(initialContent)
+interface Contents {
+  type: keyof typeof labelColor
+}
+
+export default function ContentList({ type }: Contents) {
+  const sector = useRecoilValue(sectorSelector)
+  const initialContent = useRecoilValue(contentSelector)
+  const [content, setContent] = useState(initialContent)
   const [moreContent, setMoreContent] = useState(false)
+  const [selected, setSelected] = useState<IContent | null>(null)
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     if (!moreContent) {
@@ -28,24 +35,33 @@ export default function ContentList({ tabName }: Contents) {
     } else {
       setContent(initialContent)
     }
-  }, [moreContent])
+  }, [moreContent, setContent, initialContent])
+
+  function onHandleCardClick(list: IContent) {
+    if (type === 'opinion') {
+      window.open(list.link)
+    } else {
+      setSelected(list)
+      setOpen(true)
+    }
+  }
 
   return (
     <Section>
       <TitleHeader>
         <Title>{sector.title}</Title>
-        <TitleLabel style={{ backgroundColor: `${labelColor[tabName]}` }}>
+        <TitleLabel style={{ backgroundColor: `${labelColor[type]}` }}>
           {sector.type}
         </TitleLabel>
       </TitleHeader>
       {content.map((list) => (
-        <ContentWrapper key={list.id}>
+        <ContentWrapper key={list.id} onClick={() => onHandleCardClick(list)}>
           <ContentListItem
             image={list.image}
             upload_date={list.upload_date}
             like_cnt={list.like_cnt}
             link={list.link}
-            tabName={tabName}
+            type={type}
           ></ContentListItem>
         </ContentWrapper>
       ))}
@@ -53,6 +69,14 @@ export default function ContentList({ tabName }: Contents) {
       <MoreButton onClick={() => setMoreContent(!moreContent)}>
         {moreContent ? '접기' : '더보기'}
       </MoreButton>
+
+      <ContentDetail
+        open={open}
+        setOpen={setOpen}
+        listTitle={sector.title}
+        content={selected}
+        type={type}
+      />
     </Section>
   )
 }
@@ -62,8 +86,7 @@ const Section = styled.section`
   min-width: 400px;
   border-radius: 20px;
   border: 1px solid #e0e0e0;
-  // box-shadow: 10px 10px 10px #e0e0e0;
-  padding: 20px;
+  position: relative;
 `
 const TitleHeader = styled.div`
   display: flex;
@@ -82,6 +105,7 @@ const TitleLabel = styled.div`
 `
 const ContentWrapper = styled.div`
   margin-top: 20px;
+  cursor: pointer;
 `
 
 const MoreButton = styled.button`

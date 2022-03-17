@@ -4,7 +4,7 @@ import { AiOutlineHeart } from 'react-icons/ai'
 import { IoShareOutline } from 'react-icons/io5'
 
 interface ListItem {
-  tabName: string
+  type: string
   image: string
   upload_date: string
   like_cnt: number
@@ -12,7 +12,7 @@ interface ListItem {
 }
 
 export default function ContentListItem({
-  tabName,
+  type,
   image,
   upload_date,
   like_cnt,
@@ -21,7 +21,7 @@ export default function ContentListItem({
   const handleShare = () => {
     let url = ''
 
-    if (tabName === 'Youtube') {
+    if (type === 'Youtube') {
       url = `https://www.youtube.com/watch?v=${link}`
     } else {
       url = link
