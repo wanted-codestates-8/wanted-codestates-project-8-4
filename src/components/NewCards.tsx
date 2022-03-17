@@ -34,14 +34,23 @@ export default function NewCards() {
     content.sector_id === 2 ? `https://youtu.be/${content.link}` : content.link
   )
 
-  console.log(url)
+  // console.log(url)
 
   // window.open(`https://www.youtube.com/watch?v=${data.link}`, '_blank')
 
   const goLink = () => {
-    url.map((content) => {
-      window.open(content, '_blank')
-    })
+    window.open()
+    // url.map((content, idx) => {
+    //   window.open(url[idx], '_blank')
+    // })
+  }
+
+  const checkId = (id: number, link: string) => {
+    if (id === 2) {
+      window.open(`https://youtu.be/${link}`, '_blank')
+    } else {
+      window.open(link, '_blank')
+    }
   }
 
   const path_heart_empty =
@@ -83,12 +92,7 @@ export default function NewCards() {
               <>
                 <SwiperSlide
                   key={data.id}
-                  onClick={() =>
-                    window.open(
-                      `https://www.youtube.com/watch?v=${data.link}`,
-                      '_blank'
-                    )
-                  }
+                  onClick={() => window.open(data.link, '_blank')}
                 >
                   <CardImg src={data.image} />
                   <CardTextWrapper>
@@ -114,7 +118,7 @@ export default function NewCards() {
                     <path d={isLike ? path_heart_empty : path_heart_fill} />
                   </svg>
                 </Heart>
-                <LinkIcon onClick={goLink}>
+                <LinkIcon onClick={() => checkId(data.sector_id, data.link)}>
                   <IoShareOutline size={40} color={'rgba(0, 0, 0, 0.5)'} />
                 </LinkIcon>
               </IconWrapper>
