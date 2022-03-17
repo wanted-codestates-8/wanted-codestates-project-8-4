@@ -4,7 +4,13 @@ const Subscribe = () => {
     <SubscribeWrapper>
       <Subtitle>매주 새로운 코인 지식을 드려요</Subtitle>
       <Title>샌드뱅크 오리지널</Title>
-      <Button>구독하기</Button>
+      <Button
+        onClick={() => {
+          window.open('https://sandbank.io/', '_blank')
+        }}
+      >
+        구독하기
+      </Button>
     </SubscribeWrapper>
   )
 }

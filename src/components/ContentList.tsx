@@ -55,7 +55,7 @@ export default function ContentList({ type }: Contents) {
     }
   }
 
-  const handleLikeClick = (id: number) => {
+  const handleLikeClick = (id: number, from?: string) => {
     const newContents = _.cloneDeep(contentSelect)
     const likedContent = newContents.find(
       (content: IContent) => content.id === id
@@ -70,7 +70,10 @@ export default function ContentList({ type }: Contents) {
     }
 
     setContentSelect(newContents)
-    console.log(likedContent.liked)
+
+    if (from === 'detail') {
+      setSelected(likedContent)
+    }
   }
 
   return (

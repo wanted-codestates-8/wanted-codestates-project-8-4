@@ -14,7 +14,7 @@ interface Props {
   content: IContent | null
   setSelected: Dispatch<React.SetStateAction<IContent | null>>
   scrollTop: number
-  onLikeClick: (id: number) => void
+  onLikeClick: (id: number, from?: string) => void
 }
 
 export default function ContentDetail({
@@ -50,7 +50,7 @@ export default function ContentDetail({
         return (
           <MainContent>
             <YoutubeIframeContainer>
-              <Suspense fallback={<div>loading</div>}>
+              <Suspense fallback={<div></div>}>
                 <iframe
                   src={`https://www.youtube.com/embed/${detailMemory[type]?.link}`}
                   frameBorder="0"
@@ -123,11 +123,11 @@ export default function ContentDetail({
           {content?.liked ? (
             <AiFillHeart
               style={{ color: 'red' }}
-              onClick={() => onLikeClick(content.id)}
+              onClick={() => onLikeClick(content.id, 'detail')}
             />
           ) : (
             <AiOutlineHeart
-              onClick={() => onLikeClick(content?.id as number)}
+              onClick={() => onLikeClick(content?.id as number, 'detail')}
             />
           )}
           좋아요
