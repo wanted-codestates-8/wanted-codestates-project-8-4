@@ -5,6 +5,7 @@ import { useRecoilState, useRecoilValue } from 'recoil'
 import { contentSelector, sectorSelector, tabState, TYPE } from 'store'
 import ContentList from 'components/ContentList'
 import Header from 'components/Header'
+import Subscribe from 'components/Subscribe'
 
 function App() {
   const [tab, setTab] = useRecoilState(tabState)
@@ -15,9 +16,8 @@ function App() {
     <Main>
       <Header />
       <Template>
-        {tab === 'opinion' && <div>opnion</div>}
-        {tab === 'youtube' && <ContentList tabName="Youtube"></ContentList>}
-        {tab === 'insight' && <div>insight</div>}
+        <Subscribe />
+        <ContentList type={tab} />
       </Template>
     </Main>
   )
