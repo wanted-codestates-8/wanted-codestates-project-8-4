@@ -36,12 +36,12 @@ export default function ContentDetail({
 
   useEffect(() => {
     if (content) {
-      setDetailMemory({
-        ...detailMemory,
+      setDetailMemory((prev) => ({
+        ...prev,
         [type]: content,
-      })
+      }))
     }
-  }, [content])
+  }, [content, type])
 
   function mainSelect() {
     switch (type) {
