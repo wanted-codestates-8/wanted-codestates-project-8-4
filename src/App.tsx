@@ -15,7 +15,9 @@ function App() {
     <Main>
       <Header />
       <Template>
-        <ContentList type={tab}></ContentList>
+        {tab === 'opinion' && <div>opnion</div>}
+        {tab === 'youtube' && <ContentList tabName="Youtube"></ContentList>}
+        {tab === 'insight' && <div>insight</div>}
       </Template>
     </Main>
   )

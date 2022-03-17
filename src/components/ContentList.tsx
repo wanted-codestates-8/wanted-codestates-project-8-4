@@ -82,11 +82,8 @@ export default function ContentList({ type }: Contents) {
 }
 
 const Section = styled.section`
-  background-color: white;
-  width: 40%;
-  height: 100vh;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  width: 100%;
+  min-width: 400px;
   border-radius: 20px;
   border: 1px solid #e0e0e0;
   position: relative;

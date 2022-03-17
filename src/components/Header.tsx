@@ -1,24 +1,27 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
-import { AiOutlineYoutube } from 'react-icons/ai'
-import { BiDockLeft } from 'react-icons/bi'
-import { CgInsights } from 'react-icons/cg'
 import { useRecoilState } from 'recoil'
 import { tabState, TYPE } from 'store'
+interface ITab {
+  TabId: number
+}
 
 export default function Header() {
   const Tabcontent = [
-    { id: 1, tab: '알쓸B잡', logo: <AiOutlineYoutube /> },
-    { id: 2, tab: '유투브', logo: <BiDockLeft /> },
-    { id: 3, tab: '인사이트', logo: <CgInsights /> },
+    { id: 1, tab: '알쓸B잡' },
+    { id: 2, tab: '유투브' },
+    { id: 3, tab: '인사이트' },
   ]
-  const [border, setBorder] = useState(1)
   const [tab, setTab] = useRecoilState(tabState)
-  console.log(tab, 1)
+  const [id, setId] = useState(0)
+  const getId = (v: any) => {
+    setTab(TYPE[v.id - 1])
+    setId(v.id)
+  }
   return (
     <TabWrap>
       <div style={{ width: '160px', height: '30px' }}>
-        <img src="https://sandbank.io/img/icons/logo.svg" />
+        <img src="https://sandbank.io/img/icons/logo.svg" alt="Logo" />
       </div>
       <div
         style={{
@@ -28,18 +31,14 @@ export default function Header() {
       >
         <ul>
           {Tabcontent.map((v) => (
-            <li
-              className={border === v.id ? 'active' : ''}
-              key={v.id}
-              onClick={() => setTab(TYPE[v.id - 1])}
-            >
-              <div className={border === v.id ? 'active' : ''}>
+            <li key={v.id}>
+              <div onClick={() => getId(v)}>
                 <span>{v.tab}</span>
               </div>
             </li>
           ))}
         </ul>
-        <TabSlider />
+        <TabSlider TabId={id} />
       </div>
 
       {/* <TabP /> */}
@@ -58,17 +57,12 @@ const TabWrap = styled.div`
     display: flex;
     width: 100%;
 
-    /* flex-direction: column; */
-    /* justify-content: center; */
-    /* flex-direction: row; */
     @media (max-width: 768px) {
       flex-direction: row;
       justify-content: space-around;
-      /* border-bottom: 1px solid salmon; */
     }
   }
   li {
-    /* margin-left: 100px; */
     @media (max-width: 768px) {
       margin-top: 0;
       display: flex;
@@ -83,7 +77,9 @@ const TabWrap = styled.div`
 
     align-items: center;
     span {
-      /* margin-left: 20px; */
+      &:hover {
+        color: #23a2f7;
+      }
       color: white;
       width: 100px;
       display: flex;
@@ -95,27 +91,13 @@ const TabWrap = styled.div`
     }
   }
 `
-const Img = styled.span`
-  @media (max-width: 768px) {
-    display: none;
-  }
-`
 
-const TabSlider = styled.div`
+const TabSlider = styled.div<ITab>`
   height: 5px;
   transition: 0.2s;
   left: 0;
   transition: 0.2s;
-  width: 33%;
+  width: 33.3%;
   border-bottom: 5px solid #23a2f7;
-  transform: translateX(0%);
-  /* &.active {
-    transition: 0.2s;
-    border-bottom: 5px solid dodgerblue;
-    transform: translateX(30%);
-  } */
-`
-
-const TabP = styled.p`
-  border-bottom: 5px solid dodgerblue;
+  transform: ${(props) => `translateX(${100 * (props.TabId - 2)}%)`};
 `
