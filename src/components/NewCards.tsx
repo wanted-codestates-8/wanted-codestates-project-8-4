@@ -5,7 +5,7 @@ import SwiperClass from 'swiper/types/swiper-class'
 import styled from '@emotion/styled'
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { IoShareOutline } from 'react-icons/io5'
-import { contentSelector } from 'store'
+import { contentSelector, tabState } from 'store'
 import { useRecoilValue } from 'recoil'
 
 // Import Swiper styles
@@ -19,6 +19,8 @@ export default function NewCards() {
   const topIds = newData.map((v) => v.id)
   const [isLike, setIsLike] = useState(false)
   const likes = [68, 60, 36]
+  const sectorId = useRecoilValue(tabState)
+  const [link, setLink] = useState('')
 
   const handleSlideChange = (e: SwiperClass) => {
     const i = (e.activeIndex - 1) % newData.length
@@ -26,6 +28,11 @@ export default function NewCards() {
       setIsLike(true)
     } else {
       setIsLike(false)
+    }
+    if (sectorId === 'youtube') {
+      setLink(`https://youtu.be/${newData[i].link}`)
+    } else {
+      setLink(newData[i].link)
     }
   }
 
@@ -90,7 +97,7 @@ export default function NewCards() {
                 <AiOutlineHeart size="100%" color={'#adaeb3'} />
               </Heart>
             </HeartWrapper>
-            <LinkIcon>
+            <LinkIcon onClick={() => window.open(link, '_blank')}>
               <IoShareOutline size={40} color={'#adaeb3'} />
             </LinkIcon>
           </IconWrapper>
