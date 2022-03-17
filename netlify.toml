@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/api/*"
+  to = "https://test.daground.io/:splat"
+  status = 200
