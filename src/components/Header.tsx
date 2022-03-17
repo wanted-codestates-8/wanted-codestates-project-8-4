@@ -13,11 +13,12 @@ export default function Header() {
     { id: 3, tab: '인사이트' },
   ]
   const [tab, setTab] = useRecoilState(tabState)
-  const [id, setId] = useState(0)
+  const [id, setId] = useState(1)
   const getId = (v: any) => {
     setTab(TYPE[v.id - 1])
     setId(v.id)
   }
+  console.log(tab)
   return (
     <TabWrap>
       <div style={{ width: '160px', height: '30px' }}>
@@ -99,5 +100,6 @@ const TabSlider = styled.div<ITab>`
   transition: 0.2s;
   width: 33.3%;
   border-bottom: 5px solid #23a2f7;
+  transform: translateX(-100%);
   transform: ${(props) => `translateX(${100 * (props.TabId - 2)}%)`};
 `
