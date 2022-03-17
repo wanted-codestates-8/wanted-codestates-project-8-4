@@ -17,10 +17,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
-<<<<<<< HEAD
     "react-query": "^3.34.16",
-=======
->>>>>>> abe3abd58f83e993bc8447d7107d4df8f6db6cee
     "react-scripts": "5.0.0",
     "recoil": "^0.6.1",
     "swiper": "^8.0.7",
