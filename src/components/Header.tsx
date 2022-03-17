@@ -9,7 +9,7 @@ interface ITab {
 export default function Header() {
   const Tabcontent = [
     { id: 1, tab: '알쓸B잡' },
-    { id: 2, tab: '유투브' },
+    { id: 2, tab: '유튜브' },
     { id: 3, tab: '인사이트' },
   ]
   const [tab, setTab] = useRecoilState(tabState)
