@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import { sectorSelector, tabState, TYPE } from 'store'
+import { useRecoilState } from 'recoil'
+import { tabState, TYPE } from 'store'
 interface ITab {
   TabId: number
 }
@@ -12,7 +12,7 @@ export default function Header() {
     { id: 2, tab: '유튜브' },
     { id: 3, tab: '인사이트' },
   ]
-  const [tab, setTab] = useRecoilState(tabState)
+  const setTab = useRecoilState(tabState)[1]
   const [id, setId] = useState(1)
   const getId = (v: any) => {
     setTab(TYPE[v.id - 1])

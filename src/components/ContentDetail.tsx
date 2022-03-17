@@ -1,10 +1,9 @@
 import React, { Dispatch, useState, useEffect, Suspense } from 'react'
 import styled from '@emotion/styled'
-import { css } from '@emotion/react'
 import { IoIosArrowBack } from 'react-icons/io'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { IoShareOutline } from 'react-icons/io5'
-import { IContent, IState } from 'store'
+import { IContent } from 'store'
 
 interface Props {
   listTitle: string
