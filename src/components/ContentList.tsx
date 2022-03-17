@@ -84,9 +84,11 @@ export default function ContentList({ type }: Contents) {
 const Section = styled.section`
   width: 100%;
   min-width: 400px;
-  border-radius: 20px;
-  border: 1px solid #e0e0e0;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
   position: relative;
+  overflow: hidden;
 `
 const TitleHeader = styled.div`
   display: flex;
