@@ -18,7 +18,9 @@ export default function NewCards() {
 
   return (
     <CardWrapper>
-      <CardTitle>새로 올라왔어요 NEW</CardTitle>
+      <CardTitle>
+        새로 올라왔어요 <TitleNew>NEW</TitleNew>
+      </CardTitle>
       <Swiper
         grabCursor={true}
         effect={'creative'}
@@ -58,15 +60,20 @@ export default function NewCards() {
         <BottomWrapper>
           <div className="swiper-pagination" />
           <IconWrapper>
-            {isLike ? (
-              <FillHeart onClick={() => setIsLike(!isLike)}>
-                <AiFillHeart size={40} color={'red'} />
+            <HeartWrapper>
+              <FillHeart
+                className={isLike ? 'show' : ''}
+                onClick={() => setIsLike(!isLike)}
+              >
+                <AiFillHeart size="100%" color={'red'} />
               </FillHeart>
-            ) : (
-              <Heart onClick={() => setIsLike(!isLike)}>
-                <AiOutlineHeart size={40} color={'#adaeb3'} />
+              <Heart
+                className={isLike ? '' : 'show'}
+                onClick={() => setIsLike(!isLike)}
+              >
+                <AiOutlineHeart size="100%" color={'#adaeb3'} />
               </Heart>
-            )}
+            </HeartWrapper>
             <LinkIcon>
               <IoShareOutline size={40} color={'#adaeb3'} />
             </LinkIcon>
@@ -114,11 +121,11 @@ const CardWrapper = styled.section`
 
   & .swiper-pagination-bullet {
     background-color: #347af4;
+    transition: 0.3s 0.3s;
   }
 
   & .swiper-pagination-bullet-active {
     transform: scale(1.4);
-    transition: 0.8s;
   }
 `
 const CardTitle = styled.div`
@@ -126,6 +133,16 @@ const CardTitle = styled.div`
   font-weight: bold;
   padding-top: 0.6rem;
   padding-bottom: 2rem;
+`
+
+const TitleNew = styled.span`
+  border-radius: 0.4rem;
+  padding: 0.2rem 0.6rem;
+  background-color: #71e4ae;
+
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 400;
 `
 
 const CardImg = styled.img`
@@ -167,13 +184,51 @@ const IconWrapper = styled.div`
   justify-content: space-between;
 `
 
+const HeartWrapper = styled.div`
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+`
+
 const Heart = styled.div`
-  cursor: pointer;
-  transition: 0.5s;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  width: 0;
+  height: 0;
+  transition: width 0.2s ease-out, height 0.2s ease-out;
+
+  display: grid;
+  place-items: center;
+
+  &.show {
+    top: 50%;
+    width: 4rem;
+    height: 4rem;
+    display: block;
+    cursor: pointer;
+  }
 `
 const FillHeart = styled.div`
-  transform: scale(1);
-  transition: 10s;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  width: 0;
+  height: 0;
+  transition: width 0.2s ease-out, height 0.2s ease-out;
+
+  display: grid;
+  place-items: center;
+
+  &.show {
+    top: 50%;
+    width: 4rem;
+    height: 4rem;
+    display: block;
+    cursor: pointer;
+  }
 `
 
 const LinkIcon = styled.div`
