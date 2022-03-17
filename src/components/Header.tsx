@@ -47,7 +47,7 @@ export default function Header() {
 }
 const TabWrap = styled.div`
   height: 7rem;
-  padding-left: 2rem;
+  padding: 0 2rem;
   background: #002473;
   cursor: pointer;
   width: 100%;
