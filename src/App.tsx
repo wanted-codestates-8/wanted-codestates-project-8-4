@@ -6,6 +6,7 @@ import { contentSelector, sectorSelector, tabState, TYPE } from 'store'
 import ContentList from 'components/ContentList'
 import Header from 'components/Header'
 import Subscribe from 'components/Subscribe'
+import NewCards from 'components/NewCards'
 
 function App() {
   const [tab, setTab] = useRecoilState(tabState)
@@ -16,6 +17,7 @@ function App() {
     <Main>
       <Header />
       <Template>
+        <NewCards />
         <Subscribe />
         <ContentList type={tab} />
       </Template>
