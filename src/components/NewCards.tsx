@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { MouseEvent, useState } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, EffectCreative, Pagination } from 'swiper'
 import SwiperClass from 'swiper/types/swiper-class'
 import styled from '@emotion/styled'
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { IoShareOutline } from 'react-icons/io5'
-import { contentSelector, tabState } from 'store'
-import { useRecoilValue } from 'recoil'
+import { contentSelector, tabState, likedIdListState } from 'store'
+import { useRecoilState, useRecoilValue } from 'recoil'
 
 // Import Swiper styles
 import 'swiper/css'
@@ -16,15 +16,16 @@ import 'swiper/css/pagination'
 export default function NewCards() {
   const contentData = useRecoilValue(contentSelector)
   const newData = contentData.filter((like) => like.like_top === 1)
-  const topIds = newData.map((v) => v.id)
+  const [topId, setTopId] = useState(newData[0].id)
   const [isLike, setIsLike] = useState(false)
-  const likes = [68, 60, 36]
+  const [likes, setLikes] = useRecoilState(likedIdListState)
   const sectorId = useRecoilValue(tabState)
   const [link, setLink] = useState('')
 
   const handleSlideChange = (e: SwiperClass) => {
     const i = (e.activeIndex - 1) % newData.length
-    if (likes.includes(topIds[i])) {
+    setTopId(newData[i].id)
+    if (likes.includes(newData[i].id)) {
       setIsLike(true)
     } else {
       setIsLike(false)
@@ -33,6 +34,16 @@ export default function NewCards() {
       setLink(`https://youtu.be/${newData[i].link}`)
     } else {
       setLink(newData[i].link)
+    }
+  }
+
+  const handleHeartClick = (e: MouseEvent<HTMLDivElement>) => {
+    const id = e.currentTarget.id
+    setIsLike(!isLike)
+    if (id === 'heart') {
+      setLikes((prev) => [...prev, topId])
+    } else {
+      setLikes((prev) => prev.filter((v) => v !== topId))
     }
   }
 
@@ -45,10 +56,10 @@ export default function NewCards() {
         grabCursor={true}
         effect={'creative'}
         loop={true}
-        // autoplay={{
-        //   delay: 5000,
-        //   disableOnInteraction: false,
-        // }}
+        autoplay={{
+          delay: 5000,
+          disableOnInteraction: false,
+        }}
         pagination={{
           el: '.swiper-pagination',
           type: 'bullets',
@@ -85,14 +96,16 @@ export default function NewCards() {
           <IconWrapper>
             <HeartWrapper>
               <FillHeart
+                id="fill-heart"
                 className={isLike ? 'show' : ''}
-                onClick={() => setIsLike(!isLike)}
+                onClick={handleHeartClick}
               >
                 <AiFillHeart size="100%" color={'red'} />
               </FillHeart>
               <Heart
+                id="heart"
                 className={isLike ? '' : 'show'}
-                onClick={() => setIsLike(!isLike)}
+                onClick={handleHeartClick}
               >
                 <AiOutlineHeart size="100%" color={'#adaeb3'} />
               </Heart>
