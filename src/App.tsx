@@ -22,7 +22,6 @@ function App() {
     </Main>
   )
 }
-
 const Main = styled.main`
   width: 100vw;
 `
