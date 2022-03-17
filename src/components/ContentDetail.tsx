@@ -2,7 +2,7 @@ import React, { Dispatch, useState, useEffect, Suspense } from 'react'
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
 import { IoIosArrowBack } from 'react-icons/io'
-import { AiOutlineHeart } from 'react-icons/ai'
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 import { IoShareOutline } from 'react-icons/io5'
 import { IContent, IState } from 'store'
 
@@ -14,6 +14,7 @@ interface Props {
   content: IContent | null
   setSelected: Dispatch<React.SetStateAction<IContent | null>>
   scrollTop: number
+  onLikeClick: (id: number) => void
 }
 
 export default function ContentDetail({
@@ -24,6 +25,7 @@ export default function ContentDetail({
   setOpen,
   setSelected,
   scrollTop,
+  onLikeClick,
 }: Props) {
   const [detailMemory, setDetailMemory] = useState<{
     youtube: IContent | null
@@ -118,7 +120,16 @@ export default function ContentDetail({
 
       <Social>
         <span className="heart">
-          <AiOutlineHeart />
+          {content?.liked ? (
+            <AiFillHeart
+              style={{ color: 'red' }}
+              onClick={() => onLikeClick(content.id)}
+            />
+          ) : (
+            <AiOutlineHeart
+              onClick={() => onLikeClick(content?.id as number)}
+            />
+          )}
           좋아요
         </span>
 
