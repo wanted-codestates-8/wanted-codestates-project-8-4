@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import styled from '@emotion/styled'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import {
@@ -28,6 +28,9 @@ export default function ContentList({ type }: Contents) {
   const [moreContent, setMoreContent] = useState(false)
   const [selected, setSelected] = useState<IContent | null>(null)
   const [open, setOpen] = useState(false)
+  const [scrollTop, setScrollTop] = useState(0)
+
+  const containerRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     if (!moreContent) {
@@ -36,6 +39,16 @@ export default function ContentList({ type }: Contents) {
       setContent(initialContent)
     }
   }, [moreContent, setContent, initialContent])
+
+  useEffect(() => {
+    setSelected(null)
+  }, [type])
+
+  useEffect(() => {
+    if (selected) {
+      setScrollTop(containerRef.current?.scrollTop as number)
+    }
+  }, [selected])
 
   function onHandleCardClick(list: IContent) {
     if (type === 'opinion') {
@@ -47,7 +60,7 @@ export default function ContentList({ type }: Contents) {
   }
 
   return (
-    <Section>
+    <Section overflow={selected !== null} ref={containerRef}>
       <TitleHeader>
         <Title>{sector.title}</Title>
         <TitleLabel style={{ backgroundColor: `${labelColor[type]}` }}>
@@ -55,13 +68,15 @@ export default function ContentList({ type }: Contents) {
         </TitleLabel>
       </TitleHeader>
       {content.map((list) => (
-        <ContentWrapper key={list.id} onClick={() => onHandleCardClick(list)}>
+        <ContentWrapper key={list.id}>
           <ContentListItem
             image={list.image}
             upload_date={list.upload_date}
             like_cnt={list.like_cnt}
             link={list.link}
             type={type}
+            list={list}
+            onHandleCardClick={onHandleCardClick}
           ></ContentListItem>
         </ContentWrapper>
       ))}
@@ -70,25 +85,30 @@ export default function ContentList({ type }: Contents) {
         {moreContent ? '접기' : '더보기'}
       </MoreButton>
 
-      <ContentDetail
-        open={open}
-        setOpen={setOpen}
-        listTitle={sector.title}
-        content={selected}
-        type={type}
-      />
+      {type !== 'opinion' && (
+        <ContentDetail
+          open={open}
+          setOpen={setOpen}
+          listTitle={sector.title}
+          content={selected}
+          setSelected={setSelected}
+          type={type}
+          scrollTop={scrollTop}
+        />
+      )}
     </Section>
   )
 }
 
-const Section = styled.section`
+const Section = styled.section<{ overflow: boolean }>`
   width: 100%;
   min-width: 400px;
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: ${({ overflow }) => (overflow ? 'hidden' : 'auto')};
 `
 const TitleHeader = styled.div`
   display: flex;

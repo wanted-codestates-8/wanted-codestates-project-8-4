@@ -19,6 +19,7 @@ const PageWrapper = styled.div`
   margin: 3rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: minmax(auto, calc(100vh - 13rem));
   height: 100%;
   grid-gap: 3.5rem;
 
