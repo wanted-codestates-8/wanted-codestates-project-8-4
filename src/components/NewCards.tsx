@@ -132,6 +132,7 @@ const CardWrapper = styled.section`
   }
 
   & .swiper-wrapper {
+    width: 0;
   }
 
   & .swiper-slide {
