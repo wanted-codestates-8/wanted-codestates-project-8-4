@@ -19,7 +19,7 @@ function App() {
       <Template>
         <NewCards />
         <Subscribe />
-        <ContentList type={tab}></ContentList>
+        <ContentList type={tab} />
       </Template>
     </Main>
   )
