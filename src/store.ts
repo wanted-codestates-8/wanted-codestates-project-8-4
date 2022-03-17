@@ -67,31 +67,34 @@ const stateWithAsyncDefault = selector({
       newContent[TYPE[content.sector_id - 1]].push(content)
     })
 
-    const newData = {
+    return {
       sector: newSector,
       content: newContent,
     }
-
-    return newData
   },
 })
 
 export const appState = atom<IState>({
-  key: 'AppState',
+  key: 'appState',
   default: stateWithAsyncDefault,
 })
 
 export const tabState = atom<keyof IState['sector']>({
-  key: 'Tab',
+  key: 'tabState',
   default: 'opinion',
 })
 
 export const sectorSelector = selector<ISector>({
-  key: 'SectorSelector',
+  key: 'sectorSelector',
   get: ({ get }) => get(appState).sector[get(tabState)],
 })
 
 export const contentSelector = selector<IContent[]>({
-  key: 'ContentSelector',
+  key: 'contentSelector',
   get: ({ get }) => get(appState).content[get(tabState)],
+})
+
+export const likedIdListState = atom<number[]>({
+  key: 'likedIdListState',
+  default: [],
 })
