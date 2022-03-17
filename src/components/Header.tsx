@@ -14,7 +14,7 @@ export default function Header() {
   ]
   const [border, setBorder] = useState(1)
   const [tab, setTab] = useRecoilState(tabState)
-  console.log(tab, 1)
+  // console.log(tab, 1)
   return (
     <TabWrap>
       <div style={{ width: '160px', height: '30px' }}>

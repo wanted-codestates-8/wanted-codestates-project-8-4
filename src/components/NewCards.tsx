@@ -9,7 +9,6 @@ import { Autoplay, EffectCreative, Pagination } from 'swiper'
 import styled from '@emotion/styled'
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { IoShareOutline } from 'react-icons/io5'
-import { DUMMY_DATA } from 'dummy'
 
 import { contentSelector } from 'store'
 import { useRecoilValue } from 'recoil'
@@ -30,7 +29,20 @@ export default function NewCards() {
   const newData = contentData.filter((like) => like.like_top === 1)
   const [isLike, setIsLike] = useState(true)
 
-  console.log(newData)
+  //id : opinion(1) youtube(2) insight(3)
+  const url = newData.map((content) =>
+    content.sector_id === 2 ? `https://youtu.be/${content.link}` : content.link
+  )
+
+  console.log(url)
+
+  // window.open(`https://www.youtube.com/watch?v=${data.link}`, '_blank')
+
+  const goLink = () => {
+    url.map((content) => {
+      window.open(content, '_blank')
+    })
+  }
 
   const path_heart_empty =
       'M34.6 6.1c5.7 0 10.4 5.2 10.4 11.5 0 6.8-5.9 11-11.5 16S25 41.3 24 41.9c-1.1-.7-4.7-4-9.5-8.3-5.7-5-11.5-9.2-11.5-16C3 11.3 7.7 6.1 13.4 6.1c4.2 0 6.5 2 8.1 4.3 1.9 2.6 2.2 3.9 2.5 3.9.3 0 .6-1.3 2.5-3.9 1.6-2.3 3.9-4.3 8.1-4.3m0-3c-4.5 0-7.9 1.8-10.6 5.6-2.7-3.7-6.1-5.5-10.6-5.5C6 3.1 0 9.6 0 17.6c0 7.3 5.4 12 10.6 16.5.6.5 1.3 1.1 1.9 1.7l2.3 2c4.4 3.9 6.6 5.9 7.6 6.5.5.3 1.1.5 1.6.5.6 0 1.1-.2 1.6-.5 1-.6 2.8-2.2 7.8-6.8l2-1.8c.7-.6 1.3-1.2 2-1.7C42.7 29.6 48 25 48 17.6c0-8-6-14.5-13.4-14.5z',
@@ -83,30 +95,6 @@ export default function NewCards() {
                     <CardText>{data.title}</CardText>
                   </CardTextWrapper>
                 </SwiperSlide>
-                {/* <IconWrapper>
-                  {isLike ? (
-                    <FillHeart onClick={() => setIsLike(!isLike)}>
-                      <AiFillHeart size={40} color={'red'} />
-                    </FillHeart>
-                  ) : (
-                    <Heart onClick={() => setIsLike(!isLike)}>
-                      <AiOutlineHeart
-                        size={40}
-                        // color={'rgba(0, 0, 0, 0.5)'}
-                      />
-                    </Heart>
-                  )}
-                  <LinkIcon
-                    onClick={() =>
-                      window.open(
-                        `https://www.youtube.com/watch?v=${data.link}`,
-                        '_blank'
-                      )
-                    }
-                  >
-                    <IoShareOutline size={40} color={'rgba(0, 0, 0, 0.5)'} />
-                  </LinkIcon>
-                </IconWrapper> */}
               </>
             )
           })}
@@ -114,19 +102,7 @@ export default function NewCards() {
         {newData &&
           newData.map((data) => {
             return (
-              <IconWrapper>
-                {/* {isLike ? (
-                  <FillHeart onClick={() => setIsLike(!isLike)}>
-                    <AiFillHeart size={40} color={'red'} />
-                  </FillHeart>
-                ) : (
-                  <Heart className="heart" onClick={() => setIsLike(!isLike)}>
-                    <AiOutlineHeart
-                      size={40}
-                      // color={'rgba(0, 0, 0, 0.5)'}
-                    />
-                  </Heart>
-                )} */}
+              <IconWrapper key={data.id}>
                 <Heart>
                   <svg
                     className={isLike ? 'off_button' : 'on_button'}
@@ -138,23 +114,12 @@ export default function NewCards() {
                     <path d={isLike ? path_heart_empty : path_heart_fill} />
                   </svg>
                 </Heart>
-                <LinkIcon
-                  onClick={() =>
-                    window.open(
-                      `https://www.youtube.com/watch?v=${data.link}`,
-                      '_blank'
-                    )
-                  }
-                >
+                <LinkIcon onClick={goLink}>
                   <IoShareOutline size={40} color={'rgba(0, 0, 0, 0.5)'} />
                 </LinkIcon>
               </IconWrapper>
             )
           })}
-        {/* <Input type={'checkbox'} id="test" />
-    <Label htmlFor="test">
-      <AiOutlineHeart size={40} />
-    </Label> */}
       </Swiper>
     </CardWrapper>
   )

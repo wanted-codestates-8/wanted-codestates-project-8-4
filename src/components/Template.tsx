@@ -17,7 +17,7 @@ export default function Template({ children }: ITemplate) {
         {/* <Tab /> */}
         <PageWrapper>
           {children}
-          <Subscribe />
+          {/* <Subscribe /> */}
         </PageWrapper>
         {/* <PageWrapper></PageWrapper> */}
       </Wrapper>
