@@ -18,7 +18,6 @@ export default function Header() {
     setTab(TYPE[v.id - 1])
     setId(v.id)
   }
-  console.log(tab)
   return (
     <TabWrap>
       <div style={{ width: '160px', height: '30px' }}>
@@ -47,7 +46,8 @@ export default function Header() {
   )
 }
 const TabWrap = styled.div`
-  padding: 20px;
+  height: 7rem;
+  padding-left: 2rem;
   background: #002473;
   cursor: pointer;
   width: 100%;

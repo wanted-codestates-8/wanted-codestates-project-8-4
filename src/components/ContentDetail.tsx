@@ -1,17 +1,19 @@
-import React, { Dispatch } from 'react'
+import React, { Dispatch, useState, useEffect } from 'react'
 import styled from '@emotion/styled'
 import { css } from '@emotion/react'
 import { IoIosArrowBack } from 'react-icons/io'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { IoShareOutline } from 'react-icons/io5'
-import { IState } from 'store'
+import { IContent, IState } from 'store'
 
 interface Props {
   listTitle: string
-  type: keyof IState['sector']
+  type: 'youtube' | 'insight'
   open: boolean
   setOpen: Dispatch<React.SetStateAction<boolean>>
-  content: any
+  content: IContent | null
+  setSelected: Dispatch<React.SetStateAction<IContent | null>>
+  scrollTop: number
 }
 
 export default function ContentDetail({
@@ -20,8 +22,28 @@ export default function ContentDetail({
   content,
   open,
   setOpen,
+  setSelected,
+  scrollTop,
 }: Props) {
-  console.log(open)
+  const [detailMemory, setDetailMemory] = useState<{
+    youtube: IContent | null
+    insight: IContent | null
+  }>({
+    youtube: null,
+    insight: null,
+  })
+
+  useEffect(() => {
+    if (content) {
+      setDetailMemory({
+        ...detailMemory,
+        [type]: content,
+      })
+    }
+  }, [content])
+
+  console.log(detailMemory)
+
   function mainSelect() {
     switch (type) {
       case 'youtube':
@@ -29,7 +51,7 @@ export default function ContentDetail({
           <MainContent>
             <YoutubeIframeContainer>
               <iframe
-                src={`https://www.youtube.com/embed/${content?.link}`}
+                src={`https://www.youtube.com/embed/${detailMemory[type]?.link}`}
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -38,7 +60,7 @@ export default function ContentDetail({
             </YoutubeIframeContainer>
 
             <ContentTitle>
-              <p>{content?.title}</p>
+              <p>{detailMemory[type]?.title}</p>
             </ContentTitle>
           </MainContent>
         )
@@ -47,11 +69,11 @@ export default function ContentDetail({
         return (
           <MainContent>
             <ContentTitle className="margin-bottom">
-              <p>{content?.title}</p>
+              <p>{detailMemory[type]?.title}</p>
             </ContentTitle>
 
             <InsightImgContainer>
-              <img src={content?.image} alt="insight imgage" />
+              <img src={detailMemory[type]?.image} alt="insight imgage" />
             </InsightImgContainer>
           </MainContent>
         )
@@ -59,21 +81,38 @@ export default function ContentDetail({
   }
 
   return (
-    <Container open={open}>
+    <Container open={detailMemory[type] ? true : false} scrollTop={scrollTop}>
       <Header>
-        <IoIosArrowBack className="back-icon" onClick={() => setOpen(false)} />
+        <IoIosArrowBack
+          className="back-icon"
+          onClick={() => {
+            setOpen(false)
+            setSelected(null)
+            setDetailMemory({
+              ...detailMemory,
+              [type]: null,
+            })
+          }}
+        />
         <span className="list-title">{listTitle}</span>
       </Header>
 
       {mainSelect()}
 
       <ContentBody>
-        <p>{content?.body}</p>
+        <p>{detailMemory[type]?.body}</p>
       </ContentBody>
 
       {type === 'insight' && (
         <Readmore>
-          <button className="btn">전체 리포트 읽기</button>
+          <button
+            className="btn"
+            onClick={() => {
+              window.open(detailMemory['insight']?.link)
+            }}
+          >
+            전체 리포트 읽기
+          </button>
         </Readmore>
       )}
 
@@ -93,14 +132,14 @@ export default function ContentDetail({
 }
 
 //! common
-const Container = styled.article<{ open: boolean }>`
+const Container = styled.article<{ open: boolean; scrollTop: number }>`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: white;
   overflow-y: auto;
   z-index: 1;
   position: absolute;
-  top: 0;
+  top: ${({ scrollTop }) => `${scrollTop}px`};
   left: 0;
   transition: transform 0.3s ease-in;
   transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(100%)')};
@@ -118,7 +157,7 @@ const Header = styled.div`
     position: absolute;
     font-size: 3rem;
     color: grey;
-    left: 0;
+    left: 2rem;
     cursor: pointer;
   }
 `

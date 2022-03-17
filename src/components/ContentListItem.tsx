@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { Dispatch } from 'react'
 import styled from '@emotion/styled'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { IoShareOutline } from 'react-icons/io5'
+import { IContent, IState } from 'store'
 
 interface ListItem {
-  type: string
+  type: keyof IState['sector']
   image: string
   upload_date: string
   like_cnt: number
   link: string
+  list: IContent
+  onHandleCardClick: (list: IContent) => void
 }
 
 export default function ContentListItem({
@@ -17,11 +20,13 @@ export default function ContentListItem({
   upload_date,
   like_cnt,
   link,
+  list,
+  onHandleCardClick,
 }: ListItem) {
   const handleShare = () => {
     let url = ''
 
-    if (type === 'Youtube') {
+    if (type === 'youtube') {
       url = `https://www.youtube.com/watch?v=${link}`
     } else {
       url = link
@@ -31,7 +36,10 @@ export default function ContentListItem({
 
   return (
     <>
-      <ContentImg src={image}></ContentImg>
+      <ContentImg
+        src={image}
+        onClick={() => onHandleCardClick(list)}
+      ></ContentImg>
       <ContentInfo>
         <ContentDiv>{upload_date}</ContentDiv>
         <ContentDiv>
