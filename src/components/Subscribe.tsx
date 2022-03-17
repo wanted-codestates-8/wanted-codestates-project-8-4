@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
-
 const Subscribe = () => {
   return (
     <SubscribeWrapper>
@@ -11,6 +10,7 @@ const Subscribe = () => {
 }
 
 const SubscribeWrapper = styled.section`
+  margin-top: 20px;
   width: 100%;
   min-width: 28rem;
   height: 8rem;

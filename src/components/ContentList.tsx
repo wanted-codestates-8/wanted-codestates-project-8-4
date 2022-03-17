@@ -58,7 +58,7 @@ export default function ContentList({ tabName }: Contents) {
 }
 
 const Section = styled.section`
-  width: 40%;
+  width: 100%;
   min-width: 400px;
   border-radius: 20px;
   border: 1px solid #e0e0e0;

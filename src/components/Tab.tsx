@@ -87,13 +87,13 @@ const TabSlider = styled.div`
   left: 0;
   transition: 0.2s;
   width: 33%;
-  /* border-bottom: 5px solid dodgerblue;
-  transform: translateX(0%); */
-  @media (max-width: 768px) {
+  border-bottom: 5px solid dodgerblue;
+  transform: translateX(200%);
+  /* @media (max-width: 768px) {
     transition: 0.2s;
     border-bottom: 5px solid dodgerblue;
-    transform: translateX(100%);
-  }
+    transform: translateX(200%);
+  } */
 `
 
 const TabP = styled.p`
