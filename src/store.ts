@@ -81,7 +81,7 @@ export const appState = atom<IState>({
 
 export const tabState = atom<keyof IState['sector']>({
   key: 'tabState',
-  default: 'youtube',
+  default: 'opinion',
 })
 
 export const sectorSelector = selector<ISector>({

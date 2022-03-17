@@ -21,6 +21,7 @@ export default function ContentDetail({
   open,
   setOpen,
 }: Props) {
+  console.log(open)
   function mainSelect() {
     switch (type) {
       case 'youtube':
@@ -94,7 +95,7 @@ export default function ContentDetail({
 //! common
 const Container = styled.article<{ open: boolean }>`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: white;
   overflow-y: auto;
   z-index: 1;
