@@ -1,9 +1,8 @@
-import React, { Dispatch } from 'react'
+import React from 'react'
 import styled from '@emotion/styled'
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { IoShareOutline } from 'react-icons/io5'
-import { contentSelector, IContent, IState } from 'store'
-import { useRecoilValue } from 'recoil'
+import { IContent, IState } from 'store'
 
 interface ListItem {
   type: keyof IState['sector']

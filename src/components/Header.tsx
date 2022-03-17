@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import { sectorSelector, tabState, TYPE } from 'store'
+import { useRecoilState } from 'recoil'
+import { tabState, TYPE } from 'store'
 interface ITab {
   TabId: number
 }
