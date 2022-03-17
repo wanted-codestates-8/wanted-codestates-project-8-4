@@ -23,7 +23,7 @@ export interface IContent {
   upload_date: string
   like_cnt: number
   like_top: number
-  liked?: boolean
+  liked: boolean
 }
 
 export interface IState {
@@ -93,6 +93,15 @@ export const sectorSelector = selector<ISector>({
 export const contentSelector = selector<IContent[]>({
   key: 'contentSelector',
   get: ({ get }) => get(appState).content[get(tabState)],
+  set: ({ set, get }, newContent) => {
+    set(appState, (prev) => ({
+      ...prev,
+      content: {
+        ...prev.content,
+        [get(tabState)]: newContent,
+      },
+    }))
+  },
 })
 
 export const likedIdListState = atom<number[]>({

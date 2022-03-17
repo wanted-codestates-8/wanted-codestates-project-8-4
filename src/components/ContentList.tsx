@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react'
 import styled from '@emotion/styled'
 import { useRecoilState, useRecoilValue } from 'recoil'
+import _ from 'lodash'
 import {
+  appState,
   contentSelector,
   IContent,
   sectorSelector,
@@ -22,9 +24,10 @@ interface Contents {
 }
 
 export default function ContentList({ type }: Contents) {
+  const [state, setState] = useRecoilState(appState)
   const sector = useRecoilValue(sectorSelector)
-  const initialContent = useRecoilValue(contentSelector)
-  const [content, setContent] = useState(initialContent)
+  const [contentSelect, setContentSelect] = useRecoilState(contentSelector)
+  const [content, setContent] = useState(contentSelect)
   const [moreContent, setMoreContent] = useState(false)
   const [selected, setSelected] = useState<IContent | null>(null)
   const [open, setOpen] = useState(false)
@@ -33,11 +36,11 @@ export default function ContentList({ type }: Contents) {
 
   useEffect(() => {
     if (!moreContent) {
-      setContent(initialContent.slice(0, 3))
+      setContent(contentSelect.slice(0, 3))
     } else {
-      setContent(initialContent)
+      setContent(contentSelect)
     }
-  }, [moreContent, setContent, initialContent])
+  }, [moreContent, setContent, contentSelect])
 
   useEffect(() => {
     setSelected(null)
@@ -60,6 +63,23 @@ export default function ContentList({ type }: Contents) {
     }
   }
 
+  const handleLikeClick = (id: number) => {
+    const newContents = _.cloneDeep(state.content[type])
+    const likedContent = newContents.find(
+      (content: IContent) => content.id === id
+    ) as IContent
+
+    if (likedContent.liked) {
+      likedContent.liked = false
+      likedContent.like_cnt -= 1
+    } else {
+      likedContent.liked = true
+      likedContent.like_cnt += 1
+    }
+
+    setContentSelect(newContents)
+  }
+
   return (
     <Section overflow={selected !== null} ref={containerRef}>
       <TitleHeader>
@@ -78,6 +98,7 @@ export default function ContentList({ type }: Contents) {
             type={type}
             list={list}
             onHandleCardClick={onHandleCardClick}
+            onLikeClick={handleLikeClick}
           ></ContentListItem>
         </ContentWrapper>
       ))}

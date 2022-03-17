@@ -126,6 +126,7 @@ const CardWrapper = styled.section`
   border-radius: 2rem;
   padding: 1.6rem;
   box-shadow: 0 0 1.6rem rgba(0, 0, 0, 0.2);
+  width: 100%;
 
   & .swiper {
     height: fit-content;
