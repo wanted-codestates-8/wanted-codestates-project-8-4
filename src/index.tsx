@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import { Global, css } from '@emotion/react'
+import { RecoilRoot } from 'recoil'
+import LoadingIndicator from 'components/LoadingIndicator'
 
 const global = css`
+  :root {
+    --primary: #669cff;
+    --blue: #5e72e4;
+    --sky: #e0f0ff;
+    --gray: #6c757d;
+    --lighter: #e9ecef;
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -56,12 +66,27 @@ const global = css`
       color: transparent;
     }
   }
+
+  .btn {
+    background-color: var(--sky);
+    color: var(--primary);
+    padding: 0.5rem 2.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+  }
 `
 
 ReactDOM.render(
   <React.StrictMode>
     <Global styles={global} />
-    <App />
+    <RecoilRoot>
+      <Suspense fallback={<LoadingIndicator />}>
+        <App />
+      </Suspense>
+    </RecoilRoot>
   </React.StrictMode>,
   document.getElementById('root')
 )
