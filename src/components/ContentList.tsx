@@ -2,14 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import styled from '@emotion/styled'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import _ from 'lodash'
-import {
-  appState,
-  contentSelector,
-  IContent,
-  sectorSelector,
-  tabState,
-  TYPE,
-} from 'store'
+import { contentSelector, IContent, sectorSelector } from 'store'
 import ContentListItem from './ContentListItem'
 import ContentDetail from './ContentDetail'
 
@@ -24,7 +17,6 @@ interface Contents {
 }
 
 export default function ContentList({ type }: Contents) {
-  const [state, setState] = useRecoilState(appState)
   const sector = useRecoilValue(sectorSelector)
   const [contentSelect, setContentSelect] = useRecoilState(contentSelector)
   const [content, setContent] = useState(contentSelect)
@@ -63,7 +55,7 @@ export default function ContentList({ type }: Contents) {
   }
 
   const handleLikeClick = (id: number) => {
-    const newContents = _.cloneDeep(state.content[type])
+    const newContents = _.cloneDeep(contentSelect)
     const likedContent = newContents.find(
       (content: IContent) => content.id === id
     ) as IContent
