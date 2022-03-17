@@ -123,7 +123,6 @@ export default function ContentList({ type }: Contents) {
 
 const Section = styled.section<{ overflow: boolean }>`
   width: 100%;
-  min-width: 400px;
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);

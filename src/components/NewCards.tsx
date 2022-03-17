@@ -122,8 +122,8 @@ export default function NewCards() {
 
 const CardWrapper = styled.section`
   background-color: white;
-  margin: 1rem auto;
-  border-radius: 2rem;
+  margin: 0rem auto 1rem auto;
+  border-radius: 1rem;
   padding: 1.6rem;
   box-shadow: 0 0 1.6rem rgba(0, 0, 0, 0.2);
   width: 100%;

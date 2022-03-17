@@ -10,14 +10,13 @@ const Subscribe = () => {
 }
 
 const SubscribeWrapper = styled.section`
-  margin-top: 20px;
+  margin-top: 2rem;
   width: 100%;
   min-width: 28rem;
   height: 8rem;
   border-radius: 1rem;
   padding: 0 1.6rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
-
   display: grid;
   grid-template-columns: 2fr 1fr;
 `

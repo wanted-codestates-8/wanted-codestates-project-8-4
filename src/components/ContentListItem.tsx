@@ -74,13 +74,13 @@ const ContentDiv = styled.div`
   justify-content: flex-start;
   align-items: center;
   color: #a9aaae;
-  font-size: 13px;
+  font-size: 15px;
 `
 const ContentSpan = styled.span`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   color: #a9aaae;
-  font-size: 13px;
+  font-size: 15px;
   margin-left: 10px;
 `

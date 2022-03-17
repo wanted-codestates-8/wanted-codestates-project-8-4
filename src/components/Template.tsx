@@ -18,10 +18,10 @@ export default function Template({ children }: ITemplate) {
 const PageWrapper = styled.div`
   margin: 3rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: minmax(auto, calc(100vh - 13rem));
+  grid-template-columns: repeat(2, 1fr);
+  // grid-template-rows: minmax(auto, calc(100vh - 13rem));
   height: 100%;
-  grid-gap: 3.5rem;
+  grid-gap: 3rem;
 
   @media (max-width: 768px) {
     display: flex;

@@ -17,8 +17,10 @@ function App() {
     <Main>
       <Header />
       <Template>
-        <NewCards />
-        <Subscribe />
+        <div>
+          <NewCards />
+          <Subscribe />
+        </div>
         <ContentList type={tab} />
       </Template>
     </Main>
